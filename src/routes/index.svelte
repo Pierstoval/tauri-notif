@@ -1,8 +1,16 @@
 <script lang="ts">
+    import {requestPermission} from '@tauri-apps/api/notification';
+
     function onButtonClick() {
-        Notification.requestPermission(function () {
-            console.info('requested permission.', {arguments});
-        })
+        requestPermission().then((response) => {
+            if (response === "granted") {
+                console.log("OK")
+            } else {
+                console.log("Permission is " + response);
+            }
+        }).catch(e => {
+            console.info('Error: ', e);
+        });
     }
 </script>
 
